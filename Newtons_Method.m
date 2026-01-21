@@ -1,0 +1,47 @@
+function [x, list, iterations] = Newtons_Method(f,df,x_guess,m,num_trials)
+% Things being returned 
+    % x - a root of the function (hopefully)
+    % list - tracks the progress of x 
+    % iterations - tracks how long did it take to converge 
+
+% Notes to self: may want to lower the tolerance from eps
+% Convergence should be quadratic 
+
+% f - function 
+% df - derivative
+
+% Input Initial Guess
+x = x_guess;
+% Array to track x throughout the iterations
+list = x_guess;
+iterations = 0;
+
+% start iterations
+while iterations < num_trials
+    % evaluate the function
+    fx = f(x);
+    dfx = df(x); % Evaluate the derivative at the current x
+
+    % check if the derivative to too close to 0 to divide
+    if abs(df(x)) < eps
+        fprintf("Derivative is approx zero, unable to divide \n");
+       break;
+    end
+
+    % NEWTONS METHOD (modified if m > 1)
+    x_new = x - m * (fx/dfx);
+    iterations = iterations + 1;
+    % Track the progress of x
+    list = [list,x_new];
+
+    % If f(x^k+1) is a root stop the program 
+    if abs(f(x_new)) < eps
+        % Root found
+        x = x_new;
+        break;
+    end 
+    % update the new iteration
+    x = x_new;
+end 
+end
+
