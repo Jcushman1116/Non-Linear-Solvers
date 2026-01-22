@@ -46,16 +46,34 @@ disp(progress3)
 
 % Question 2: What happens when x0 is the floating point rep of c
 
-x_guess4 = p/sqrt(5); % derived
+x_cycle = p/sqrt(5); % derived
 
 fprintf("Newton behavior for x0 = c (cycling point) \n"); 
-[case4_root, progress4, iterations4] = Newtons_Method(f, df, x_guess4, m, num_trials);
+[case4_root, progress4, iterations4] = Newtons_Method(f, df, x_cycle, m, num_trials);
 fprintf("root: %f |  Iterations: %d \n", case4_root, iterations4);
 disp(progress4)
 
-% what if we perturb the cycling point by small amount 
+% What if we perturb the cycling point 
+% Perturb the cycling point slightly
 
-x_guess4_perturbed = x_guess4 + perturbation;
+fprintf("Newton Bahvior for Perturbed cycling point: x0 + eps \n")
+for n=1:10 % Makes each purtubation smaller % can go higher than 10 i think 
+    pertubation = (1/10)^n; % .1, .01, .001, ...
+    x_cycle_perturbed = x_cycle + pertubation; 
+    [case5_root, progress5, iterations5] = Newtons_Method(f, df, x_cycle_perturbed, m, num_trials);
+    fprintf("pertubation size: %.10f | root after perturbation: %f |  Iterations: %d \n", pertubation, case5_root, iterations5);
+    disp(progress5);
+end 
+
+fprintf("Newton Bahvior for Perturbed cycling point: x0 - eps \n")
+for n=1:10 % Makes each purtubation smaller % can go higher than 10 i think 
+    pertubation = (1/10)^n; % .1, .01, .001, ...
+    x_cycle_perturbed = x_cycle - pertubation; 
+    [case6_root, progress6, iterations6] = Newtons_Method(f, df, x_cycle_perturbed, m, num_trials);
+    fprintf("pertubation size: %.10f | root after perturbation: %f |  Iterations: %d \n", pertubation, case6_root, iterations6);
+    disp(progress6);
+end 
+
 
 
 
