@@ -8,6 +8,6 @@
     % case b): a < x < p 
     % case c): -c < x < c where c is the "cycling point for f(x)"
 
-% 
+% Test for github 
 
 
