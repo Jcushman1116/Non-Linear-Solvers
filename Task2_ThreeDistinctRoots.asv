@@ -69,12 +69,31 @@ fprintf("Newton Bahvior for Perturbed cycling point: x0 - eps \n")
 for n=1:10 % Makes each purtubation smaller % can go higher than 10 i think 
     pertubation = (1/10)^n; % .1, .01, .001, ...
     x_cycle_perturbed = x_cycle - pertubation; 
-    [case5_root, progress5, iterations5] = Newtons_Method(f, df, x_cycle_perturbed, m, num_trials);
-    fprintf("pertubation size: %.10f | root after perturbation: %f |  Iterations: %d \n", pertubation, case5_root, iterations5);
-    disp(progress5);
+    [case6_root, progress6, iterations6] = Newtons_Method(f, df, x_cycle_perturbed, m, num_trials);
+    fprintf("pertubation size: %.10f | root after perturbation: %f |  Iterations: %d \n", pertubation, case6_root, iterations6);
+    disp(progress6);
 end 
 
+% 3) skipped for now 
 
+% 4) can we make newton method fail by producing numbers too large
 
+% first let the initial guess be the largest possible 
+% double precision floating number 
 
+fprintf("Newton Behavior for Largest Double precision float: \n"); 
+x_realmax_double = realmax('double'); %realmax is largest double prec num
+[case7_root, progress7, iterations7] = Newtons_Method(f, df, x_realmax_double, m, num_trials);
+fprintf("Root: %.10f | Iterations: %d \n", case7_root, iterations7);
+disp(progress7);
 
+fprintf("Newton Behavior for Largest Single precision float: \n"); 
+x_realmax_single = realmax('single'); %realmax is largest double prec num
+[case8_root, progress8, iterations8] = Newtons_Method(f, df, x_realmax_single, m, num_trials);
+fprintf("Root: %.10f | Iterations: %d \n", case8_root, iterations8);
+disp(progress8);
+
+% Thus showing a counterexample for when newtons method fails due to a
+% large starting point, AKA realmax in Matlab 
+
+% Next we will compare 
