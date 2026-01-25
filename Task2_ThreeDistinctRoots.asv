@@ -96,4 +96,101 @@ disp(progress8);
 % Thus showing a counterexample for when newtons method fails due to a
 % large starting point, AKA realmax in Matlab 
 
-% Next we will compare 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Testing Steffenson Method: Uses the same information as Newtons Methods
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Next we will compare the Other iterative methods 
+% Regula Falsi: 
+
+fprintf("Regula Falsi Testing \n")
+
+% Recall roots at -2,0,2
+a = -3; 
+b = -1; 
+fprintf("Test Interval 1: ")
+disp([a,b])
+
+[case9_root, progress9, iterations9] = RegulaFalsi_Method(f, a, b ,num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case9_root, iterations9);
+disp(progress9);
+
+a = -1; 
+b = 1;
+fprintf("Test Interval 2: ")
+disp([a,b])
+
+[case10_root, progress10, iterations10] = RegulaFalsi_Method(f, a, b ,num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case10_root, iterations10);
+disp(progress10);
+
+a = 1; 
+b = 3; 
+fprintf("Test Interval 3: ")
+disp([a,b])
+
+[case11_root, progress11, iterations11] = RegulaFalsi_Method(f, a, b, num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case11_root, iterations11);
+disp(progress11);
+
+a = -3;
+b = 1; 
+fprintf("Test Interval 4: ")
+disp([a,b])
+
+[case12_root, progress12, iterations12] = RegulaFalsi_Method(f, a, b, num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case12_root, iterations12);
+disp(progress12);
+
+a = -1;
+b = 3; 
+fprintf("Test Interval 5: ")
+disp([a,b])
+
+[case13_root, progress13, iterations13] = RegulaFalsi_Method(f, a, b, num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case13_root, iterations13);
+disp(progress13);
+
+a = -3; 
+b = 3; 
+fprintf("Test Interval 6: ")
+disp([a,b])
+
+[case14_root, progress14, iterations14] = RegulaFalsi_Method(f, a, b, num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case14_root, iterations14);
+disp(progress14);
+
+a = -3; 
+b = -4; 
+fprintf("Test Interval 7: ")
+disp([a,b])
+
+[case15_root, progress15, iterations15] = RegulaFalsi_Method(f, a, b, num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case15_root, iterations15);
+disp(progress15);
+
+a = 3; 
+b = 4; 
+fprintf("Test Interval 8: ")
+disp([a,b])
+
+[case16_root, progress16, iterations16] = RegulaFalsi_Method(f, a, b, num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case16_root, iterations16);
+disp(progress16);
+
+a = -p/sqrt(5);
+b = p/sqrt(5); 
+fprintf("Test Interval 8: ")
+disp([a,b])
+
+[case17_root, progress17, iterations17] = RegulaFalsi_Method(f, a, b, num_trials); 
+fprintf("Regula Falsi Root: %f | Iterations: %d \n", case17_root, iterations17);
+disp(progress17);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Secant Testing
+% Similar to RF we must choose inervals that may or may not work
