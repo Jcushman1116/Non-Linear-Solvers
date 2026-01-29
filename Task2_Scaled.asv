@@ -1,0 +1,245 @@
+% What happens when we scale of function: 
+%   F(x) = sigma * f(x), where sigma is positive integer
+
+%Global Parameters: 
+rho = 2; 
+alpha = rho/sqrt(3); %causes derivative to be undefined
+eta = rho/sqrt(5); % cycling point
+num_trials = 10; 
+m = 1; 
+
+%Initial Guess 
+x0_1 = 4; % x > rho 
+x0_2 = (alpha+rho)/2; % alpha < x < rho 
+x0_3 = eta/2; % -eta < x < eta
+
+% Loop to Compare Newton and Secant Method for Cases of Interest
+for sigma = 1:5 
+    fprintf("Current sigma: %d\n", sigma);
+
+    %functions: 
+    scaled_f = @(x) sigma * (x * (x-rho) * (x+rho)); 
+    scaled_df = @(x) sigma * (3 * (x-alpha) * (x+alpha));
+
+    % Case1: x > rho
+
+    % Newton 1
+    fprintf("Scaled Newtons behavior for x > rho \n");
+    [scaled_root1, scaled_progress1, scaled_iterations1] = Newtons_Method(scaled_f,scaled_df,x0_1,m,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", scaled_root1, scaled_iterations1);
+    fprintf("Scaled Newtons Iteration Progress \n"); 
+    disp(scaled_progress1); 
+
+    % Steffenson 1
+    fprintf("Scaled Steffenson behavior for x > rho \n");
+    [steffenson_scaled_root1, steffenson_scaled_progress1, steffenson_scaled_iterations1] = Steffensons_Method(scaled_f,x0_1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", steffenson_scaled_root1, steffenson_scaled_iterations1);
+    fprintf("Scaled Newtons Iteration Progress \n"); 
+    disp(steffenson_scaled_progress1); 
+
+    % Case2: alpha < x < rho
+
+    %Newton 2
+    fprintf("Scaled Newtons behavior for alpha < x < rho \n");
+    [scaled_root2, scaled_progress2, scaled_iterations2] = Newtons_Method(scaled_f,scaled_df,x0_2,m,num_trials); 
+    fprintf("root found: %f |  Iterations: %d \n", scaled_root2, scaled_iterations2);
+    fprintf("Scaled Newtons Iteration Progress \n"); 
+    disp(scaled_progress2); 
+
+    %Steffenson 2
+    fprintf("Scaled Steffenson behavior for alpha < x < rho \n");
+    [steffenson_scaled_root2, steffenson_scaled_progress2, steffenson_scaled_iterations2] = Steffensons_Method(scaled_f,x0_2,num_trials); 
+    fprintf("root found: %f |  Iterations: %d \n", steffenson_scaled_root2, steffenson_scaled_iterations2);
+    fprintf("Scaled Steffenson Iteration Progress \n"); 
+    disp(steffenson_scaled_progress2); 
+
+    % Case3: -eta < x < eta
+
+    %Newton 3
+    fprintf("Scaled Newtons behavior for -eta < x < eta \n");
+    [scaled_root3, scaled_progress3, scaled_iterations3] = Newtons_Method(scaled_f,scaled_df,x0_3,m,num_trials); 
+    fprintf("root found: %f |  Iterations: %d \n", scaled_root3, scaled_iterations3);
+    fprintf("Scaled Newtons Iteration Progress \n"); 
+    disp(scaled_progress3); 
+
+
+    %Steffenson 3
+    fprintf("Scaled Steffenson behavior for -eta < x < eta \n");
+    [steffenson_scaled_root3, steffenson_scaled_progress3, steffenson_scaled_iterations3] = Steffensons_Method(scaled_f,x0_3,num_trials); 
+    fprintf("root found: %f |  Iterations: %d \n", steffenson_scaled_root3, steffenson_scaled_iterations3);
+    fprintf("Scaled Steffenson Iteration Progress \n"); 
+    disp(steffenson_scaled_progress3); 
+
+    % Case4: x = eta 
+
+    % Newton 4
+    fprintf("Scaled Newtons behavior for x = eta \n");
+    [scaled_root4, scaled_progress4, scaled_iterations4] = Newtons_Method(scaled_f,scaled_df,eta,m,num_trials); 
+    fprintf("root found: %f |  Iterations: %d \n", scaled_root4, scaled_iterations4);
+    fprintf("Scaled Newtons Iteration Progress \n"); 
+    disp(scaled_progress4); 
+
+    % Steffenson 4
+    fprintf("Scaled Steffenson behavior for x = eta \n");
+    [steffenson_scaled_root4, steffenson_scaled_progress4, steffenson_scaled_iterations4] = Steffensons_Method(scaled_f,eta,num_trials); 
+    fprintf("root found: %f |  Iterations: %d \n", steffenson_scaled_root4, steffenson_scaled_iterations4);
+    fprintf("Scaled Steffenson Iteration Progress \n"); 
+    disp(steffenson_scaled_progress4); 
+
+    % Case5: x = alpha
+
+    % Newton 5
+    fprintf("Scaled Newtons behavior for x = alpha \n");
+    [scaled_root5, scaled_progress5, scaled_iterations5] = Newtons_Method(scaled_f,scaled_df,alpha,m,num_trials); 
+    fprintf("root found: %f |  Iterations: %d \n", scaled_root5, scaled_iterations5);
+    fprintf("Scaled Newtons Iteration Progress \n"); 
+    disp(scaled_progress5); 
+
+    % Steffenson 5
+    fprintf("Scaled Steffenson behavior for x = alpha \n");
+    [steffenson_scaled_root5, steffenson_scaled_progress5, steffenson_scaled_iterations5] = Steffensons_Method(scaled_f,alpha,num_trials); 
+    fprintf("root found: %f |  Iterations: %d \n", steffenson_scaled_root5, steffenson_scaled_iterations5);
+    fprintf("Scaled Steffenson Iteration Progress \n"); 
+    disp(steffenson_scaled_progress5); 
+
+    fprintf("\n ------------------------------------------------------------ \n")
+
+end 
+
+% Next we will test the Secant Method against the Regula Falsi Metho and
+% use the same inital guesses for both methods and compare 
+
+for sigma = 1:5 
+    fprintf("Current sigma: %d\n", sigma);
+
+    %functions: 
+    scaled_f = @(x) sigma * (x * (x-rho) * (x+rho)); 
+
+    % Case1 for x0 > rho
+
+    % Secant 1a
+    fprintf("Scaled Secant behavior for x0 > rho and x1 > rho \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,3,4,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    % RF 1a 
+    fprintf("Scaled RF behavior for x0 > rho and x1 > rho \n");
+    [root, progress, iterations] = RegulaFalsi_Method(scaled_f,3,4,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled RF Iteration Progress \n"); 
+    disp(progress); 
+
+    % Secant 1b
+    fprintf("Scaled Secant behavior for x0 > rho and x1 < rho \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,3,1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    % RF 1b
+    fprintf("Scaled RF behavior for x0 > rho and x1 < rho \n");
+    [root, progress, iterations] = RegulaFalsi_Method(scaled_f,3,1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled RF Iteration Progress \n"); 
+    disp(progress); 
+
+    % Case 2 for alpha < x0 < rho 
+
+    % Secant 2a
+    fprintf("Scaled Secant behavior for alpha < x0 < rho and x1 < alpha \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,((alpha+rho)/2),0.5,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    % RF 2a
+    fprintf("Scaled RF behavior for alpha < x0 < rho and x1 < alpha \n");
+    [root, progress, iterations] = RegulaFalsi_Method(scaled_f,((alpha+rho)/2),0.5,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled RF Iteration Progress \n"); 
+    disp(progress); 
+
+    % Secant 2b
+    fprintf("Scaled Secant behavior for alpha < x0 < rho and x1 > rho \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,((alpha+rho)/2),3,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    % RF 2b 
+    fprintf("Scaled RF behavior for alpha < x0 < rho and x1 > rho \n");
+    [root, progress, iterations] = RegulaFasli_Method(scaled_f,((alpha+rho)/2),3,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled RF Iteration Progress \n"); 
+    disp(progress); 
+
+    % Case 3 for -eta < x0 < eta
+
+    % Secant 3a
+    fprintf("Scaled Secant behavior for -eta < x0 < eta and x1 < -eta \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,0.5,-1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    % RF 3a
+    fprintf("Scaled RF behavior for -eta < x0 < eta and x1 < -eta \n");
+    [root, progress, iterations] = RegulaFalsi_Method(scaled_f,0.5,-1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled RF Iteration Progress \n"); 
+    disp(progress); 
+
+    % Secant 3b
+    fprintf("Scaled Secant behavior for -eta < x0 < eta and x1 > eta \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,0.5,1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    % RF 3b
+    fprintf("Scaled RF behavior for -eta < x0 < eta and x1 > eta \n");
+    [root, progress, iterations] = RegulaFalsi_Method(scaled_f,0.5,1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled RF Iteration Progress \n"); 
+    disp(progress); 
+
+    % Case 4 for x0 = eta 
+
+    % Secant 4a
+    fprintf("Scaled Secant behavior for x0 = eta and x1 < eta \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,eta,eta-1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    %Secant 4b
+    fprintf("Scaled Secant behavior for x0 = eta and x1 > eta \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,eta,eta+1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    % Case 5 for x0 = alpha
+
+    %Secant 5a
+    fprintf("Scaled Secant behavior for  x0 = alpha and x1 < alpha \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,alpha,alpha-1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    %Secant 5b 
+    fprintf("Scaled Secant behavior for  x0 = alpha and x1 > alpha \n");
+    [root, progress, iterations] = Secant_Method(scaled_f,alpha,alpha+1,num_trials);
+    fprintf("root found: %f |  Iterations: %d \n", root, iterations);
+    fprintf("Scaled Secant Iteration Progress \n"); 
+    disp(progress); 
+
+    fprintf("\n ------------------------------------------------------------ \n")
+
+end 
+
+
+
