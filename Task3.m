@@ -1,6 +1,5 @@
 % Task 3 - Problem 6.3 
-% - Things to consider from the Solutions: 
-     % 1: 
+% - Things to consider from the Solutions
 
 % Consdier the function f(x) = x^2-x-2 with roots at -1 and 2
 f = @(x) (x^2)-x-2; 
