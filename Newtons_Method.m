@@ -23,7 +23,7 @@ while iterations < num_trials
     dfx = df(x); % Evaluate the derivative at the current x
 
     % check if the derivative to too close to 0 to divide
-    if abs(df(x)) < eps
+    if abs(dfx) < eps
         fprintf("Derivative is approx zero, unable to divide \n");
        break;
     end
@@ -34,7 +34,7 @@ while iterations < num_trials
     % Track the progress of x
     list = [list,x_new];
 
-    % If f(x^k+1) is a root stop the program 
+    % Stopping Critera 
     if abs(f(x_new)) < eps
         % Root found
         x = x_new;
