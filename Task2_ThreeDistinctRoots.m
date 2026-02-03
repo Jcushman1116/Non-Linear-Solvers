@@ -10,7 +10,7 @@
 
 m = 1; % Standard Newton 
 p = 2; %starting point 
-num_trials = 10; 
+num_trials = 20; 
 
 % Case Variables:
 x_guess1 = 4; % x>p
@@ -236,6 +236,11 @@ fprintf("steffenson behavior for x0 = c (cycling point) \n");
 fprintf("root: %f |  Iterations: %d \n", case21_root, iterations21);
 disp(progress21)
 
+fprintf("steffenson behavior for x0 = alpha \n"); 
+[newcase_root, newprogress, newiterations] = Steffensons_Method(f,alpha,num_trials);
+fprintf("root: %f |  Iterations: %d \n", newcase_root, newiterations);
+disp(newprogress)
+
 % What if we perturb the cycling point 
 % Perturb the cycling point slightly
 
@@ -362,3 +367,11 @@ disp([a,b])
 [case34_root, progress34, iterations34] = Secant_Method(f, a, b, num_trials); 
 fprintf("Root: %f | Iterations: %d \n", case34_root, iterations34);
 disp(progress34);% Secant Testing
+
+a = -alpha; 
+b = alpha; 
+
+[case35_root, progress35, iterations35] = Secant_Method(f, a, b, num_trials); 
+fprintf("Root: %f | Iterations: %d \n", case34_root, iterations34);
+disp(progress34);% Secant Testing
+

@@ -3,11 +3,12 @@
 % This contains a single root at p of multiplicity d
 
 % 1) Standard Newton Method (m=1) - Quadratic Conv
-x_guess = 1; % Test on multiple guess
+x_guess = 1; % Test on 1 and 10 
+% x_guess = 2
 m = 1; 
 p = 0; % Root at p 
-num_trials = 100;
-fprintf("\n Standard Newton Method (m=1, d=2,3,...)\n");
+num_trials = 1000;
+fprintf("\n Standard Newton Method (m=1, d=2,3,...) and x0: %d\n", x_guess);
 
 % Next we will loop over d and call the function:
 for d = 2:25
@@ -23,7 +24,7 @@ for d = 2:25
 end 
 
 % 2) Modified Newtons Method (m=d) - Minimum Quadratic Conv ... TBD
-fprintf("\n Modified Newton Method (m=d=2,3,...) \n")
+fprintf("\n Modified Newton Method (m=d=2,3,...) and x0: %d\n", x_guess)
 
 % Loop over d and call the function:
 for d = 2:25
@@ -42,7 +43,7 @@ end
 % 3) Steffensons Method - Does this appear Quadratic (I think yes)
 % - Converges just barely slower than standard newtons method 
 
-fprintf("\n Steffensons Method (d = 2,3,...)\n")
+fprintf("\n Steffensons Method (d = 2,3,...) at x0: %d\n", x_guess)
 
 % Loop over d and call the function:
 for d = 2:25
@@ -57,12 +58,12 @@ end
 
 % 4 + 5) Regula Falsi & Secant Method for d = 1,2,3,...
 % Pay attention to the difference between d = 1 vs d = 2,3,,...
-% starting interval [-1,1] for root 0
-a = -1; 
-b = 1; 
+% starting interval [-1,1] and [-10, 10]for root 0
+a = -100; 
+b = 100; 
 
 % RF METHOD
-fprintf("\n Regula Falsi (d = 1,2,3,...)\n");
+fprintf("\n Regula Falsi (d = 1,2,3,...) \n");
 for d = 1:25
     % Define the function 
     f = @(x) (x - p)^d;    
@@ -74,12 +75,11 @@ for d = 1:25
 end
 
 % SECANT METHOD
+
+% Initial Guess for root at 0 
+x_guess1 = -5; % -1 and -10
+x_guess2 = 1; % -1 and -10 
 fprintf("\n Secant Method (d = 1,2,3,...) \n");
-
-% Initial Guess for root at 0
-x_guess1 = -1;
-x_guess2 = 1; 
-
 for d = 1:25
     % Define the function 
     f = @(x) (x - p)^d;    
@@ -94,6 +94,7 @@ end
 % - 2 Cases: m > d, and m < d
 
 fprintf("\n Modified Newton Method (m < d) \n");
+x_guess = 1; 
 
 for d = 2:11
     for m=1:(d-1) % Recall m=1 to start 

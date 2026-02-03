@@ -5,7 +5,7 @@
 rho = 2; 
 alpha = rho/sqrt(3); %causes derivative to be undefined
 eta = rho/sqrt(5); % cycling point
-num_trials = 10; 
+num_trials = 25; 
 m = 1; 
 
 %Initial Guess 
@@ -14,7 +14,7 @@ x0_2 = (alpha+rho)/2; % alpha < x < rho
 x0_3 = eta/2; % -eta < x < eta
 
 % Loop to Compare Newton and Secant Method for Cases of Interest
-for sigma = 1:5 
+for sigma = 1:3 
     fprintf("Current sigma: %d\n", sigma);
 
     %functions: 
